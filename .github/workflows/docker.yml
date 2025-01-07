@@ -16,8 +16,8 @@ jobs:
       # Step 3: Build and Push Docker Image
       - name: Build and Push Docker Image
         run: |
-          docker build -t anzaam/dockertask:latest .
-          docker push anzaam/dockertask:latest
+          docker build -t anzaam/flaskapp:latest .
+          docker push anzaam/flaskapp:latest
       # Step 4: Set up SSH for EC2
       - name: Set up SSH
         run: |
@@ -34,8 +34,8 @@ jobs:
       - name: Deploy on EC2
         run: |
           ssh -i ~/.ssh/docker.pem ubuntu@${{ secrets.EC2_PUBLIC_IP }} << EOF
-          docker pull anzaam/dockertask:latest
+          docker pull anzaam/flaskapp:latest
           docker stop flaskapp || true
           docker rm flaskapp || true
-          docker run -d --name flaskapp -p 5000:5000 anzaam/dockertask:latest
+          docker run -d --name flaskapp -p 5000:5000 anzaam/flaskapp:latest
           EOF
