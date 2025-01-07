@@ -39,3 +39,4 @@ jobs:
           docker rm flaskapp || true
           docker run -d --name flaskapp -p 5000:5000 anzaam/flaskapp:latest
           EOF
+          
